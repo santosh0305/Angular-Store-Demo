@@ -13,6 +13,15 @@ import ToDo from "./todo.model";
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent {
+  todo$: Observable<ToDoState>;
+  ToDoSubscription: Subscription;
+  ToDoList: ToDo[] = [];
+
+  Title: string = "";
+  IsCompleted: boolean = false;
+
+  todoError: Error = null;
+  
   constructor(private store: Store<{ todos: ToDoState }>) {
     this.todo$ = store.pipe(select("todos"));
   }
@@ -30,15 +39,6 @@ export class AppComponent {
     //this.store.dispatch(ToDoAction.BeginGetToDoAction());
     this.store.dispatch(BeginGetToDoAction());
   }
-
-  todo$: Observable<ToDoState>;
-  ToDoSubscription: Subscription;
-  ToDoList: ToDo[] = [];
-
-  Title: string = "";
-  IsCompleted: boolean = false;
-
-  todoError: Error = null;
 
   createToDo() {
     const todo: ToDo = { Title: this.Title, IsCompleted: this.IsCompleted };
