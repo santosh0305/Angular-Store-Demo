@@ -6,13 +6,16 @@ import { AppComponent } from "./app.component";
 import { HelloComponent } from "./hello.component";
 import { ToDoReducer } from "./todo.reducer";
 import { ToDoEffects } from "./todo.effects";
-
-StoreModule.forRoot({ todos: ToDoReducer });
-
-EffectsModule.forRoot([ToDoEffects]);
+import { StoreModule } from "@ngrx/store";
+import { EffectsModule } from "@ngrx/effects";
 
 @NgModule({
-  imports: [BrowserModule, FormsModule],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    StoreModule.forRoot({ todos: ToDoReducer })
+    //EffectsModule.forRoot([ToDoEffects])
+  ],
   declarations: [AppComponent, HelloComponent],
   bootstrap: [AppComponent]
 })

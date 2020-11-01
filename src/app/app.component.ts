@@ -3,6 +3,9 @@ import { Observable } from "rxjs/internal/Observable";
 import { Subscription } from "rxjs/internal/Subscription";
 import { map } from "rxjs/operators";
 import ToDoState from "./todo.state";
+import { Store, select } from "@ngrx/store";
+import { BeginCreateToDoAction, BeginGetToDoAction } from "./todo.action";
+import ToDo from "./todo.model";
 
 @Component({
   selector: "my-app",
@@ -24,7 +27,8 @@ export class AppComponent {
       )
       .subscribe();
 
-    this.store.dispatch(ToDoActions.BeginGetToDoAction());
+    //this.store.dispatch(ToDoAction.BeginGetToDoAction());
+    this.store.dispatch(BeginGetToDoAction());
   }
 
   todo$: Observable<ToDoState>;
@@ -38,7 +42,8 @@ export class AppComponent {
 
   createToDo() {
     const todo: ToDo = { Title: this.Title, IsCompleted: this.IsCompleted };
-    this.store.dispatch(ToDoActions.BeginCreateToDoAction({ payload: todo }));
+    // this.store.dispatch(ToDoActions.BeginCreateToDoAction({ payload: todo }));
+    this.store.dispatch(BeginCreateToDoAction({ payload: todo }));
     this.Title = "";
     this.IsCompleted = false;
   }
